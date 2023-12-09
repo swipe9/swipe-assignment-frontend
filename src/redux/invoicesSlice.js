@@ -18,6 +18,18 @@ const invoicesSlice = createSlice({
         state[index] = action.payload.updatedInvoice;
       }
     },
+    bulkUpdate:(state,action)=>{
+      action.payload.forEach((invoice)=>{
+        const index = state.findIndex(
+          (oldinvoice) => invoice.id === oldinvoice.id
+        );
+        if (index !== -1) {
+          console.log(invoice)
+          state[index] = invoice;
+        }
+
+      })
+    }
   },
 });
 
@@ -25,6 +37,7 @@ export const {
   addInvoice,
   deleteInvoice,
   updateInvoice,
+  bulkUpdate
 } = invoicesSlice.actions;
 
 export const selectInvoiceList = (state) => state.invoices;
